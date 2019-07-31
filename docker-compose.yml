@@ -46,6 +46,21 @@ services:
    - RABBITMQ_DEFAULT_USER=admin
    - RABBITMQ_DEFAULT_PASS=Admin@123
 
+ rabbitmq-node-4:
+  image: rabbitmq:3-management
+  container_name: rabbitmq-node-4
+  hostname: rabbitmq-node-4
+  ports:
+   - "15675:15672"
+  networks: 
+   - cluster-network
+  volumes:
+   - $PWD/storage/rabbitmq-node-4:/var/lib/rabbitmq
+  environment:
+   - RABBITMQ_ERLANG_COOKIE=cluster_cookie
+   - RABBITMQ_DEFAULT_USER=admin
+   - RABBITMQ_DEFAULT_PASS=Admin@123
+
  haproxy:
   image: haproxy-rabbitmq-cluster:1.7
   container_name: haproxy
